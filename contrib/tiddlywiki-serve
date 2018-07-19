@@ -41,7 +41,7 @@ while [[ "$1" != '' ]]; do
 done
 
 if [[ ! -d $wikifolder ]]; then
-	printf 'tiddlywiki-docker: <wikifolder> "%s" is not a directory\n' "$wikifolder" >&2
+	printf 'tiddlywiki-serve: <wikifolder> "%s" is not a directory\n' "$wikifolder" >&2
 	usage
 	exit 1
 fi
@@ -70,7 +70,7 @@ docker run --detach --rm \
 
 exit_status=$?
 if [[ $exit_status -ne 0 ]]; then
-	printf 'tiddlywiki-docker: error starting container "%s"\n' "$container_name" >&2
+	printf 'tiddlywiki-serve: error starting container "%s"\n' "$container_name" >&2
 	exit $exit_status
 fi
 
