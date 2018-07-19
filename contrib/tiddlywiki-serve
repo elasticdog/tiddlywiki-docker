@@ -15,6 +15,7 @@ container_name="tw-${WIKIFOLDER//[^a-zA-Z0-9_.-]/-}"
 
 docker run --detach --rm \
 	--name "$container_name" \
+	--env-file <(env | grep ^TIDDLYWIKI_) \
 	--publish 127.0.0.1::8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
