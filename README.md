@@ -4,13 +4,13 @@
 
 ## TiddlyWiki Docker
 
-[TiddlyWiki][] is a self-contained JavaScript wiki that's useful as a non-linear notebook for capturing, organizing, and sharing complex information. These container images are for running TiddlyWiki installed as a Node.js application for the purpose of syncing and saving changes. See the [TiddlyWiki release notes][] for details on specific versions.
+[TiddlyWiki][] is a self-contained JavaScript wiki that's useful as a non-linear notebook for capturing, organizing, and sharing complex information. These container images are for running TiddlyWiki installed as a Node.js application for the purpose of syncing and saving changes.
 
-Automated builds of these images are published to [`elasticdog/tiddlywiki` on Docker Hub][].
+Automated builds of these images are published to [`elasticdog/tiddlywiki` on Docker Hub][]. See the [TiddlyWiki release notes][] for details on specific versions.
 
 [TiddlyWiki]: https://tiddlywiki.com/
-[TiddlyWiki release notes]: https://tiddlywiki.com/#Releases
 [`elasticdog/tiddlywiki` on Docker Hub]: https://hub.docker.com/r/elasticdog/tiddlywiki/
+[TiddlyWiki release notes]: https://tiddlywiki.com/#Releases
 
 ## Usage
 
