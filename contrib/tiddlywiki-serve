@@ -10,6 +10,7 @@
 [[ -n $DEBUG ]] && set -o xtrace
 
 readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
+readonly TIDDLYWIKI_DOCKER_PORT="${TIDDLYWIKI_DOCKER_PORT:-}"
 
 # print this script's usage message to stderr
 usage() {
@@ -51,7 +52,7 @@ container_name="tw-${wikifolder_basename//[^a-zA-Z0-9_.-]/-}"
 docker run --detach --rm \
 	--name "$container_name" \
 	--env-file <(env | grep ^TIDDLYWIKI_) \
-	--publish 127.0.0.1::8080 \
+	--publish "127.0.0.1:${TIDDLYWIKI_DOCKER_PORT}:8080" \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
 	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
