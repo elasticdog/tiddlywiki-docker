@@ -15,12 +15,13 @@ readonly TIDDLYWIKI_DOCKER_PORT="${TIDDLYWIKI_DOCKER_PORT:-}"
 # print this script's usage message to stderr
 usage() {
 	cat <<-EOF >&2
-		usage: tiddlywiki-serve [<wikifolder>]
+		usage: tiddlywiki-serve [--help] [--stop] [<wikifolder>]
 	EOF
 }
 
-# default to the current working directory
-wikifolder='.'
+# reset all variables that might be set
+stop_container=''
+wikifolder='.'  # default to the current working directory
 
 # parse command line options
 while [[ "$1" != '' ]]; do
@@ -28,6 +29,9 @@ while [[ "$1" != '' ]]; do
 		-h | --help | -\?)
 			usage
 			exit 0
+			;;
+		-s | --stop)
+			stop_container='true'
 			;;
 		*)
 			wikifolder=${1#-}
@@ -37,7 +41,7 @@ while [[ "$1" != '' ]]; do
 done
 
 if [[ ! -d $wikifolder ]]; then
-	printf 'ERROR: <wikifolder> is not a directory\n' >&2
+	printf 'tiddlywiki-docker: <wikifolder> "%s" is not a directory\n' "$wikifolder" >&2
 	usage
 	exit 1
 fi
@@ -49,6 +53,12 @@ wikifolder_basename=$(basename -- "$PWD")
 # replace any invalid characters with a hyphen
 container_name="tw-${wikifolder_basename//[^a-zA-Z0-9_.-]/-}"
 
+if [[ $stop_container == 'true' ]]; then
+	printf 'stopping container "%s"\n' "$container_name"
+	docker stop "$container_name" > /dev/null
+	exit $?
+fi
+
 docker run --detach --rm \
 	--name "$container_name" \
 	--env-file <(env | grep ^TIDDLYWIKI_) \
@@ -56,12 +66,15 @@ docker run --detach --rm \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
 	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
-	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0
+	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0 > /dev/null
 
-if [[ $? -ne 0 ]]; then
-	printf 'ERROR: could not start the container "%s" server\n' "$container_name" >&2
-	exit 1
+exit_status=$?
+if [[ $exit_status -ne 0 ]]; then
+	printf 'tiddlywiki-docker: error starting container "%s"\n' "$container_name" >&2
+	exit $exit_status
 fi
 
 port_mapping=$(docker port "$container_name" 8080)
-printf 'container "%s" server listening at %s\n' "$container_name" "http://${port_mapping/#127.0.0.1/localhost}"
+printf 'container "%s" listening at %s\n' "$container_name" "http://${port_mapping/#127.0.0.1/localhost}"
+
+exit 0
