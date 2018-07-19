@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+#
+# tiddlywiki-serve
+#
+# Start a TiddlyWiki server (running in a Docker container)
+# for an //existing// wiki on the host's filesystem.
+#
+
 [[ -n $DEBUG ]] && set -o xtrace
 
 readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"

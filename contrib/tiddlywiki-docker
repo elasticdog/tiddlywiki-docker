@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+#
+# tiddlywiki-docker
+#
+# Run an interactive TiddlyWiki command with the host's current working
+# directory bind mounted inside the Docker container's data volume.
+#
+
 [[ -n $DEBUG ]] && set -o xtrace
 
 readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
