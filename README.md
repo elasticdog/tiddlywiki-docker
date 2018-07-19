@@ -30,7 +30,10 @@ That said, there are a few caveats to consider when using a Docker-ized version 
 
 To facilitate handling these things, you can write short wrapper scripts for common scenarios...
 
+> _NOTE: These example scripts can be found in the [**contrib** directory][] of the source repository._
+
 [get them out of the container]: https://docs.docker.com/storage/
+[**contrib** directory]: https://github.com/elasticdog/tiddlywiki-docker/tree/master/contrib
 
 ### Interactive Wrapper
 
@@ -84,8 +87,8 @@ readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
 readonly WIKIFOLDER=$1
 
 if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
-  printf 'Usage: tiddlywiki-serve <wikifolder>\n'
-  exit 1
+	printf 'Usage: tiddlywiki-serve <wikifolder>\n'
+	exit 1
 fi
 
 docker run --detach --rm \

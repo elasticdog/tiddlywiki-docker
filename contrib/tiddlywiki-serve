@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+[[ -n $DEBUG ]] && set -o xtrace
+
+readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
+readonly WIKIFOLDER=$1
+
+if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
+	printf 'Usage: tiddlywiki-serve <wikifolder>\n'
+	exit 1
+fi
+
+docker run --detach --rm \
+	--name tiddlywiki \
+	--publish 8080:8080 \
+	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
+	--user "$(id -u):$(id -g)" \
+	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
+	"$WIKIFOLDER" \
+	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0
