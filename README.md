@@ -14,7 +14,7 @@ Automated builds of these images are published to [`elasticdog/tiddlywiki` on Do
 
 ## Usage
 
-These images are meant to replicate the functionality of the `tiddlywiki` Node.JS CLI executable. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
+These images are meant to replicate the functionality of the `tiddlywiki` CLI executable. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
 
     docker run -it --rm elasticdog/tiddlywiki --version
 
