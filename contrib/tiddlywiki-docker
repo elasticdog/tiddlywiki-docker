@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 #
-# tiddlywiki-docker
+# tiddlywiki-docker -- https://github.com/elasticdog/tiddlywiki-docker
 #
 # Run an interactive TiddlyWiki command with the host's current working
 # directory bind mounted inside the Docker container's data volume.
+#
+# Copyright (c) 2018 Aaron Bull Schaefer <aaron@elasticdog.com>
+# This source code is provided under the terms of the MIT License
+# that can be be found in the top-level LICENSE file.
 #
 
 [[ -n $TIDDLYWIKI_DOCKER_DEBUG ]] && set -o xtrace

@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
 
 #
-# tiddlywiki-serve
+# tiddlywiki-serve -- https://github.com/elasticdog/tiddlywiki-docker
 #
 # Start a TiddlyWiki server (running in a Docker container)
 # for an //existing// wiki on the host's filesystem.
+#
+# Copyright (c) 2018 Aaron Bull Schaefer <aaron@elasticdog.com>
+# This source code is provided under the terms of the MIT License
+# that can be be found in the top-level LICENSE file.
 #
 
 [[ -n $TIDDLYWIKI_DOCKER_DEBUG ]] && set -o xtrace
