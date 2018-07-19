@@ -30,7 +30,7 @@ That said, there are a few caveats to consider when using a Docker-ized version 
 
 To facilitate handling these things, you can write short wrapper scripts for common scenarios...
 
-> _NOTE: These example scripts can be found in the [**contrib** directory][] of the source repository._
+> _NOTE: Advanced versions of these example scripts can be found in the [**contrib** directory][] of the source repository._
 
 [get them out of the container]: https://docs.docker.com/storage/
 [**contrib** directory]: https://github.com/elasticdog/tiddlywiki-docker/tree/master/contrib
@@ -41,14 +41,12 @@ For the scenario where you want to run commands interactively, you could create 
 
 ```bash
 #!/usr/bin/env bash
-readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
 
 docker run --interactive --tty --rm \
-	--name tiddlywiki \
-	--publish 8080:8080 \
+	--publish 127.0.0.1:8080:8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
-	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
+	elasticdog/tiddlywiki \
 	"$@"
 ```
 
@@ -83,20 +81,15 @@ For the scenario where you want to run commands in the background (e.g. to serve
 
 ```bash
 #!/usr/bin/env bash
-readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
-readonly WIKIFOLDER=$1
 
-if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
-	printf 'Usage: tiddlywiki-serve <wikifolder>\n'
-	exit 1
-fi
+readonly WIKIFOLDER=$1
 
 docker run --detach --rm \
 	--name tiddlywiki \
-	--publish 8080:8080 \
+	--publish 127.0.0.1:8080:8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
-	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
+	elasticdog/tiddlywiki \
 	"$WIKIFOLDER" \
 	--server 8080 '$:/core/save/all' text/plain text/html '' '' 0.0.0.0
 ```
@@ -114,15 +107,15 @@ Assuming the background wrapper script is named `tiddlywiki-serve` and exists in
 2. You can see that the TiddlyWiki server is still running in the background:
    ```
    $ docker ps --latest
-   CONTAINER ID        IMAGE                          COMMAND                  CREATED                  STATUS              PORTS                    NAMES
-   9b76d1be260f        elasticdog/tiddlywiki:latest   "/sbin/tini -- tiddl…"   Less than a second ago   Up 23 seconds       0.0.0.0:8080->8080/tcp   tiddlywiki
+   CONTAINER ID        IMAGE                          COMMAND                  CREATED                  STATUS              PORTS                      NAMES
+   9b76d1be260f        elasticdog/tiddlywiki:latest   "/sbin/tini -- tiddl…"   Less than a second ago   Up 23 seconds       127.0.0.1:8080->8080/tcp   tiddlywiki
    ```
 
 3. Edit the TiddlyWiki by navigating to <http://localhost:8080> in your host's web browser.
 
 4. Stop the TiddlyWiki server:
    ```
-   docker container stop tiddlywiki
+   docker stop tiddlywiki
    ```
 
 ## License
