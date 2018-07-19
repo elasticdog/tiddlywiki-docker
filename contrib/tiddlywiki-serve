@@ -10,11 +10,22 @@ if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
 	exit 1
 fi
 
+# replace any invalid characters with a hyphen
+container_name="tiddlywiki-${WIKIFOLDER//[^a-zA-Z0-9_.-]/-}"
+
 docker run --detach --rm \
-	--name tiddlywiki \
-	--publish 8080:8080 \
+	--name "$container_name" \
+	--publish 127.0.0.1::8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
 	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
 	"$WIKIFOLDER" \
 	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0
+
+if [[ $? -ne 0 ]]; then
+	printf 'ERROR: could not start %s server\n' "$container_name"
+	exit 1
+fi
+
+port_mapping=$(docker port "$container_name" 8080)
+printf '%s server listening at %s\n' "$container_name" "http://${port_mapping/#127.0.0.1/localhost}"
