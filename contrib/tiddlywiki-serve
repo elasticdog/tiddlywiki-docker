@@ -2,7 +2,7 @@
 
 [[ -n $DEBUG ]] && set -o xtrace
 
-readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
+readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
 readonly WIKIFOLDER=$1
 
 if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
@@ -11,14 +11,14 @@ if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
 fi
 
 # replace any invalid characters with a hyphen
-container_name="tiddlywiki-${WIKIFOLDER//[^a-zA-Z0-9_.-]/-}"
+container_name="tw-${WIKIFOLDER//[^a-zA-Z0-9_.-]/-}"
 
 docker run --detach --rm \
 	--name "$container_name" \
 	--publish 127.0.0.1::8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
-	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
+	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
 	"$WIKIFOLDER" \
 	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0
 

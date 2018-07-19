@@ -2,11 +2,11 @@
 
 [[ -n $DEBUG ]] && set -o xtrace
 
-readonly TIDDLYWIKI_VERSION="${TIDDLYWIKI_VERSION:-latest}"
+readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
 
 docker run --interactive --tty --rm \
 	--publish 127.0.0.1:8080:8080 \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
-	"elasticdog/tiddlywiki:${TIDDLYWIKI_VERSION}" \
+	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
 	"$@"
