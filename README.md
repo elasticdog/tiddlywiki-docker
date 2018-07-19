@@ -78,7 +78,7 @@ See `./tiddlywiki-docker --help` for more details.
 
 ### Background Wrapper
 
-For the scenario where you want to run commands in the background (e.g. to server an existing wiki), you could create something like the following wrapper script:
+For the scenario where you want to run commands in the background (e.g. to serve an existing wiki), you could create something like the following wrapper script:
 
 ```bash
 #!/usr/bin/env bash
