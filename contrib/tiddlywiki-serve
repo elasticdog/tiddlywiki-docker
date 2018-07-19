@@ -10,15 +10,43 @@
 [[ -n $DEBUG ]] && set -o xtrace
 
 readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
-readonly WIKIFOLDER=$1
 
-if [[ -z $WIKIFOLDER ]] || [[ ! -d $WIKIFOLDER ]]; then
-	printf 'Usage: tiddlywiki-serve <wikifolder>\n'
+# print this script's usage message to stderr
+usage() {
+	cat <<-EOF >&2
+		usage: tiddlywiki-serve [<wikifolder>]
+	EOF
+}
+
+# default to the current working directory
+wikifolder='.'
+
+# parse command line options
+while [[ "$1" != '' ]]; do
+	case $1 in
+		-h | --help | -\?)
+			usage
+			exit 0
+			;;
+		*)
+			wikifolder=${1#-}
+			;;
+	esac
+	shift
+done
+
+if [[ ! -d $wikifolder ]]; then
+	printf 'ERROR: <wikifolder> is not a directory\n' >&2
+	usage
 	exit 1
 fi
 
+# expand any relative paths so our container name will be useful
+cd "$wikifolder" > /dev/null || exit 1
+wikifolder_basename=$(basename -- "$PWD")
+
 # replace any invalid characters with a hyphen
-container_name="tw-${WIKIFOLDER//[^a-zA-Z0-9_.-]/-}"
+container_name="tw-${wikifolder_basename//[^a-zA-Z0-9_.-]/-}"
 
 docker run --detach --rm \
 	--name "$container_name" \
@@ -27,13 +55,12 @@ docker run --detach --rm \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
 	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
-	"$WIKIFOLDER" \
 	--server 8080 '$:/core/save/lazy-all' text/plain text/html '' '' 0.0.0.0
 
 if [[ $? -ne 0 ]]; then
-	printf 'ERROR: could not start %s server\n' "$container_name"
+	printf 'ERROR: could not start the container "%s" server\n' "$container_name" >&2
 	exit 1
 fi
 
 port_mapping=$(docker port "$container_name" 8080)
-printf '%s server listening at %s\n' "$container_name" "http://${port_mapping/#127.0.0.1/localhost}"
+printf 'container "%s" server listening at %s\n' "$container_name" "http://${port_mapping/#127.0.0.1/localhost}"
