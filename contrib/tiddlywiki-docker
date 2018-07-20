@@ -13,8 +13,8 @@
 
 [[ -n $TIDDLYWIKI_DOCKER_DEBUG ]] && set -o xtrace
 
-readonly TIDDLYWIKI_DOCKER_TAG="${TIDDLYWIKI_DOCKER_TAG:-latest}"
-readonly TIDDLYWIKI_DOCKER_PORT="${TIDDLYWIKI_DOCKER_PORT:-}"
+readonly TIDDLYWIKI_DOCKER_TAG=${TIDDLYWIKI_DOCKER_TAG:-latest}
+readonly TIDDLYWIKI_DOCKER_PORT=${TIDDLYWIKI_DOCKER_PORT:-}
 
 docker run --interactive --tty --rm \
 	--env-file <(env | grep ^TIDDLYWIKI_) \
