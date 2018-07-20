@@ -1,0 +1,19 @@
+file:
+  /tiddlywiki:
+    exists: true
+    filetype: directory
+package:
+  tini:
+    installed: true
+command:
+  tiddlywiki --version:
+    exit-status: 0
+    stdout:
+    - {{.Env.TIDDLYWIKI_VERSION}}
+    stderr: []
+    timeout: 10000
+process:
+  node:
+    running: true
+  tini:
+    running: true

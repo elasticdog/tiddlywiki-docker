@@ -1,0 +1,11 @@
+port:
+  tcp:8080:
+    listening: true
+    ip:
+    - 127.0.0.1
+http:
+  http://localhost:8080:
+    status: 200
+    timeout: 5000
+    body:
+    - My TiddlyWiki
