@@ -5,6 +5,9 @@ jobs:
     docker:
       - image: docker:stable-git
 
+    environment:
+      GOSS_FILES_STRATEGY: cp
+
     steps:
       - checkout
 
