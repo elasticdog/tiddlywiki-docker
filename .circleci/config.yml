@@ -20,7 +20,7 @@ jobs:
           name: Test Docker image
           command: |
             cd tests/
-            apk add --no-cache curl
+            apk add --no-cache bash curl
             curl -fsSL https://goss.rocks/install | sh
             dgoss run tiddlywiki --server
 
