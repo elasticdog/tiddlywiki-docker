@@ -17,11 +17,15 @@ jobs:
             docker build -t tiddlywiki .
 
       - run:
+          name: Install goss and the dgoss wrapper
+          command: |
+            apk add --no-cache --no-progress bash curl
+            curl -fsSL https://goss.rocks/install | sh
+
+      - run:
           name: Test Docker image
           command: |
             cd tests/
-            apk add --no-cache bash curl
-            curl -fsSL https://goss.rocks/install | sh
             dgoss run tiddlywiki --server
 
   tag:
