@@ -60,7 +60,7 @@ jobs:
 workflows:
   version: 2
 
-  push:
+  test:
     jobs:
       - test
 
