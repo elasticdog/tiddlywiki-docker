@@ -20,7 +20,7 @@ jobs:
             docker build -t tiddlywiki .
 
       - run:
-          name: Install goss and the dgoss wrapper
+          name: Install testing dependencies
           command: |
             apk add --no-cache --no-progress bash curl
             curl -fsSL https://goss.rocks/install | sh
@@ -41,8 +41,8 @@ jobs:
       - run:
           name: Push version-specific image tag
           command: |
-              echo 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-              echo 'docker tag elasticdog/tiddlywiki:5 elasticdog/tiddlywiki:$TAG'
+              echo "docker login -u $DOCKER_USER -p $DOCKER_PASS"
+              echo "docker tag ${DOCKER_USER}/tiddlywiki:5 ${DOCKER_USER}/tiddlywiki:$(docker run -it --rm ${DOCKER_USER}/tiddlywiki:5 --version)"
 
 workflows:
   version: 2
