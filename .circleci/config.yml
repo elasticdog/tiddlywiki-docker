@@ -1,0 +1,51 @@
+version: 2
+
+jobs:
+  test:
+    docker:
+      - image: docker:stable-git
+
+    steps:
+      - checkout
+
+      - setup_remote_docker
+
+      - run:
+          name: Build Docker image
+          command: |
+            cd 5/
+            docker build -t tiddlywiki .
+
+      - run:
+          name: Test Docker image
+          command: |
+            cd tests/
+            apk add --no-cache curl
+            curl -fsSL https://goss.rocks/install | sh
+            dgoss run tiddlywiki --server
+
+  tag:
+    docker:
+      - image: docker:stable
+
+    steps:
+      - setup_remote_docker
+
+      - run:
+          name: Push version-specific image tag
+          command: |
+              echo 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
+              echo 'docker tag elasticdog/tiddlywiki:5 elasticdog/tiddlywiki:$TAG'
+
+workflows:
+  version: 2
+
+  test_and_tag:
+    jobs:
+      - test
+      - tag:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
