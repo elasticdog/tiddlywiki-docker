@@ -58,20 +58,19 @@ jobs:
             echo docker push "${DOCKER_USER}/tiddlywiki:${PATCH_VERSION}"
 
 workflows:
-   version: 2
+  version: 2
 
-   push:
-     jobs:
-       - test
+  push:
+    jobs:
+      - test
 
-   daily:
-     triggers:
-       - schedule:
-           cron: "0 0 * * *"
-           filters:
-             branches:
-               only:
-                 - master
-
-     jobs:
-       - tag
+  daily:
+    triggers:
+      - schedule:
+          cron: "0,30 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - tag
