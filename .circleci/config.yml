@@ -1,3 +1,9 @@
+---
+
+# yaml anchor to reduce duplication
+tiddlywiki_major_version: &tiddlywiki_major_version
+  MAJOR_VERSION: 5
+
 version: 2
 
 jobs:
@@ -7,6 +13,7 @@ jobs:
 
     environment:
       GOSS_FILES_STRATEGY: cp
+      <<: *tiddlywiki_major_version
 
     steps:
       - checkout
@@ -16,7 +23,7 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd 5/
+            cd $MAJOR_VERSION/
             docker build -t tiddlywiki .
 
       - run:
@@ -35,24 +42,36 @@ jobs:
     docker:
       - image: docker:stable
 
+    environment:
+      <<: *tiddlywiki_major_version
+
     steps:
       - setup_remote_docker
 
       - run:
-          name: Push version-specific image tag
+          name: Add patch version tag to major version image
           command: |
-              echo "docker login -u $DOCKER_USER -p $DOCKER_PASS"
-              echo "docker tag ${DOCKER_USER}/tiddlywiki:5 ${DOCKER_USER}/tiddlywiki:$(docker run -it --rm ${DOCKER_USER}/tiddlywiki:5 --version)"
+            PATCH_VERSION=$(docker run -it --rm tiddlywiki --version)
+            docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+            docker pull "${DOCKER_USER}/tiddlywiki:${MAJOR_VERSION}"
+            docker tag "${DOCKER_USER}/tiddlywiki:${MAJOR_VERSION}" "${DOCKER_USER}/tiddlywiki:${PATCH_VERSION}"
+            echo docker push "${DOCKER_USER}/tiddlywiki:${PATCH_VERSION}"
 
 workflows:
-  version: 2
+   version: 2
 
-  test_and_tag:
-    jobs:
-      - test
-      - tag:
-          requires:
-            - test
-          filters:
-            branches:
-              only: master
+   push:
+     jobs:
+       - test
+
+   daily:
+     triggers:
+       - schedule:
+           cron: "0 0 * * *"
+           filters:
+             branches:
+               only:
+                 - master
+
+     jobs:
+       - tag
