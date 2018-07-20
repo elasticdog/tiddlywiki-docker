@@ -1,19 +1,17 @@
 ---
 
-# yaml anchor to reduce duplication
-tiddlywiki_major_version: &tiddlywiki_major_version
-  MAJOR_VERSION: 5
+defaults: &defaults
+  working_directory: /tmp
+  docker:
+    - image: docker:stable-git
 
 version: 2
 
 jobs:
   test:
-    docker:
-      - image: docker:stable-git
-
+    <<: *defaults
     environment:
       GOSS_FILES_STRATEGY: cp
-      <<: *tiddlywiki_major_version
 
     steps:
       - checkout
@@ -23,54 +21,58 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            cd $MAJOR_VERSION/
             docker build -t tiddlywiki .
-
+            docker save tiddlywiki | gzip -c > tiddlywiki.tar.gz
       - run:
-          name: Install testing dependencies
+          name: Install dependencies
           command: |
             apk add --no-cache --no-progress bash curl
             curl -fsSL https://goss.rocks/install | sh
-
       - run:
           name: Test Docker image
           command: |
             cd tests/
             dgoss run tiddlywiki --server
 
+      - persist_to_workspace:
+          root: workspace
+          paths:
+            - tiddlywiki.tar.gz
+
   tag:
-    docker:
-      - image: docker:stable
-
-    environment:
-      <<: *tiddlywiki_major_version
-
+    <<: *defaults
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
+
       - setup_remote_docker
 
       - run:
-          name: Add patch version tag to major version image
+          name: Install dependencies
           command: |
+            apk add --no-cache --no-progress bash
+      - run:
+          name: Tag Docker image
+          command: |
+            docker load --input tiddlywiki.tar.gz
             PATCH_VERSION=$(docker run -it --rm tiddlywiki --version)
+            MAJOR_VERSION=${PATCH_VERSION%%.*}
             docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
-            docker pull "${DOCKER_USER}/tiddlywiki:${MAJOR_VERSION}"
-            docker tag "${DOCKER_USER}/tiddlywiki:${MAJOR_VERSION}" "${DOCKER_USER}/tiddlywiki:${PATCH_VERSION}"
-            echo docker push "${DOCKER_USER}/tiddlywiki:${PATCH_VERSION}"
+            docker tag tiddlywiki "elasticdog/tiddlywiki:latest"
+            docker tag tiddlywiki "elasticdog/tiddlywiki:${PATCH_VERSION}"
+            docker tag tiddlywiki "elasticdog/tiddlywiki:${MAJOR_VERSION}"
+            docker image ls elasticdog/tiddlywiki
+            echo docker push elasticdog/tiddlywiki
 
 workflows:
   version: 2
-
-  test:
+  build:
     jobs:
       - test
-
-  daily:
-    triggers:
-      - schedule:
-          cron: "0,30 * * * *"
+      - tag:
+          requires:
+            - test
           filters:
             branches:
               only:
                 - master
-    jobs:
-      - tag
