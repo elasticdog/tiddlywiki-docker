@@ -51,9 +51,9 @@ jobs:
           name: Tag Docker image
           command: |
             docker load --input tiddlywiki.tar.gz
-            PATCH_VERSION=$(docker run -it --rm tiddlywiki --version)
+            PATCH_VERSION=$(docker run -it --rm tiddlywiki --version | tr -d '[:space:]')
             MAJOR_VERSION=$(echo "$PATCH_VERSION" | sed 's/\..*//')
-            docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
+            echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
             docker tag tiddlywiki "elasticdog/tiddlywiki:latest"
             docker tag tiddlywiki "elasticdog/tiddlywiki:${PATCH_VERSION}"
             docker tag tiddlywiki "elasticdog/tiddlywiki:${MAJOR_VERSION}"
