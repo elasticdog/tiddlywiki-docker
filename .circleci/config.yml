@@ -1,7 +1,7 @@
 ---
 
 defaults: &defaults
-  working_directory: /tmp
+  working_directory: /tmp/workspace
   docker:
     - image: docker:stable-git
 
@@ -14,8 +14,7 @@ jobs:
       GOSS_FILES_STRATEGY: cp
 
     steps:
-      - checkout:
-          path: /tmp/workspace
+      - checkout
 
       - setup_remote_docker
 
@@ -55,7 +54,7 @@ jobs:
       - run:
           name: Tag Docker image
           command: |
-            docker load --input /tmp/workspace/tiddlywiki.tar.gz
+            docker load --input tiddlywiki.tar.gz
             PATCH_VERSION=$(docker run -it --rm tiddlywiki --version)
             MAJOR_VERSION=${PATCH_VERSION%%.*}
             docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
