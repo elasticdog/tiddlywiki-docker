@@ -48,15 +48,11 @@ jobs:
       - setup_remote_docker
 
       - run:
-          name: Install dependencies
-          command: |
-            apk add --no-cache --no-progress bash
-      - run:
           name: Tag Docker image
           command: |
             docker load --input tiddlywiki.tar.gz
             PATCH_VERSION=$(docker run -it --rm tiddlywiki --version)
-            MAJOR_VERSION=${PATCH_VERSION%%.*}
+            MAJOR_VERSION=$(echo "$PATCH_VERSION" | sed 's/\..*//')
             docker login -u "$DOCKER_USER" -p "$DOCKER_PASS"
             docker tag tiddlywiki "elasticdog/tiddlywiki:latest"
             docker tag tiddlywiki "elasticdog/tiddlywiki:${PATCH_VERSION}"
