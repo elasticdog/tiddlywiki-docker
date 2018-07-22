@@ -4,19 +4,20 @@
 
 ## TiddlyWiki Docker
 
-[TiddlyWiki][] is a self-contained JavaScript wiki that's useful as a non-linear notebook for capturing, organizing, and sharing complex information. These container images are for running TiddlyWiki installed as a Node.js application for the purpose of syncing and saving changes.
+[TiddlyWiki][] is a self-contained JavaScript wiki that's useful as a non-linear notebook for capturing, organizing, and sharing complex information. These container images are for [running TiddlyWiki as a Node.js application][on-nodejs], which improves syncing and saving functionality over the single file version.
 
 [![Build Status](https://circleci.com/gh/elasticdog/tiddlywiki-docker/tree/master.svg?style=svg)](https://circleci.com/gh/elasticdog/tiddlywiki-docker/tree/master)
 
 See the [TiddlyWiki release notes][] for details on specific versions. Automated builds of these images are published to [`elasticdog/tiddlywiki` on Docker Hub][].
 
 [TiddlyWiki]: https://tiddlywiki.com/
-[`elasticdog/tiddlywiki` on Docker Hub]: https://hub.docker.com/r/elasticdog/tiddlywiki/
+[on-nodejs]: https://tiddlywiki.com/#TiddlyWiki%20on%20Node.js:%5B%5BTiddlyWiki%20on%20Node.js%5D%5D%20%5B%5BUsing%20TiddlyWiki%20on%20Node.js%5D%5D
 [TiddlyWiki release notes]: https://tiddlywiki.com/#Releases
+[`elasticdog/tiddlywiki` on Docker Hub]: https://hub.docker.com/r/elasticdog/tiddlywiki/
 
 ## Usage
 
-These images are meant to replicate the functionality of the `tiddlywiki` CLI executable. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
+These images are meant to replicate the functionality of the `tiddlywiki` CLI executable, but running in Docker. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
 
     docker run -it --rm elasticdog/tiddlywiki --version
 
