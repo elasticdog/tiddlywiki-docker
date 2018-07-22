@@ -1,8 +1,11 @@
-# TiddlyWiki Docker contrib
+TiddlyWiki Docker contrib
+=========================
 
-Any code in this directory is not officially supported, and may change or be removed at any time without notice.
+Any code in this directory is not officially supported, and may change or be
+removed at any time without notice.
 
-## Demo Session
+Demo Session
+------------
 
     $ tiddlywiki-docker mynewwiki --init server
     Copied edition 'server' to mynewwiki
