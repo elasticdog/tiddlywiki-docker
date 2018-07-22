@@ -121,6 +121,12 @@ Assuming the background wrapper script is named `tiddlywiki-serve` and exists in
    docker stop tiddlywiki
    ```
 
+## Contributing
+
+The TiddlyWiki Docker project welcomes contributions from everyone. If you're thinking of helping out, please read the [guidelines for contributing][contributing].
+
+[contributing]: https://github.com/elasticdog/tiddlywiki-docker/blob/master/CONTRIBUTING.md
+
 ## License
 
 tiddlywiki-docker is provided under the terms of the [MIT License][].
