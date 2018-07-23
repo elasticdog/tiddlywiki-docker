@@ -4,8 +4,9 @@ DOCKER_HUB_REPOSITORY ?= elasticdog
 all: build
 
 .PHONY: build
+build: SOURCE_COMMIT := $(shell git rev-parse HEAD)
 build:
-	docker build --tag tiddlywiki .
+	docker build --build-arg "SOURCE_COMMIT=${SOURCE_COMMIT}" --tag tiddlywiki .
 
 .PHONY: test
 test:
@@ -16,7 +17,9 @@ tag: PATCH_VERSION := $(shell docker run -it --rm tiddlywiki --version | sed 's/
 tag: MINOR_VERSION := $(shell echo "${PATCH_VERSION}" | awk -F. '{ print $$1"."$$2 }')
 tag: MAJOR_VERSION := $(shell echo "${PATCH_VERSION}" | awk -F. '{ print $$1 }')
 tag:
+	# unique tag
 	if [ "$$CI" = true ]; then docker tag tiddlywiki "${DOCKER_HUB_REPOSITORY}/tiddlywiki:$$(date +%Y%m%d).$${CIRCLE_BUILD_NUM}"; fi
+	# stable tags
 	docker tag tiddlywiki "${DOCKER_HUB_REPOSITORY}/tiddlywiki:latest"
 	docker tag tiddlywiki "${DOCKER_HUB_REPOSITORY}/tiddlywiki:${PATCH_VERSION}"
 	docker tag tiddlywiki "${DOCKER_HUB_REPOSITORY}/tiddlywiki:${MINOR_VERSION}"
