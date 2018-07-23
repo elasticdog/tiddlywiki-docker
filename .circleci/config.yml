@@ -77,14 +77,13 @@ jobs:
 
 workflows:
   version: 2
-  build:
+
+  commit:
     jobs:
       - build
-
       - test:
           requires:
             - build
-
       - deploy:
           requires:
             - test
@@ -92,3 +91,20 @@ workflows:
             branches:
               only:
                 - master
+
+  monthly:
+    triggers:
+      - schedule:
+          cron: "0 0 1 * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
