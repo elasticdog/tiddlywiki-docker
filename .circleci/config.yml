@@ -52,7 +52,7 @@ jobs:
             GOSS_OPTS: --format junit
           command: |
             mkdir -p test-results/junit
-            make test > test-results/junit/results.xml
+            make --silent test | sed -n '/<?xml/,$p' > test-results/junit/results.xml
           when: on_fail
       - store_test_results:
           path: test-results
