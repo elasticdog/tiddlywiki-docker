@@ -48,11 +48,9 @@ jobs:
             make test
       - run:
           name: Generate detailed test results
-          environment:
-            GOSS_OPTS: --format junit
           command: |
             mkdir -p test-results/junit
-            make --silent test | sed -n '/<?xml/,$p' > test-results/junit/results.xml || exit 0
+            env GOSS_OPTS='--format junit' make --silent test | sed -n '/<?xml/,$p' > test-results/junit/results.xml || exit 0
           when: on_fail
       - store_test_results:
           path: test-results
