@@ -48,9 +48,8 @@ exists in a subdirectory.
 To build the Docker image and test it, run the following commands:
 
     $ cd tiddlywiki-docker/
-    $ docker build -t tiddlywiki .
-    $ cd tests/
-    $ dgoss run tiddlywiki --server
+    $ make build
+    $ make test
 
 > For version bumps, don't forget to adjust the list of supported tags at the
 > top of the _[README][]_.
