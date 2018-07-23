@@ -50,6 +50,7 @@ jobs:
   deploy:
     <<: *defaults
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/workspace
       - setup_remote_docker
