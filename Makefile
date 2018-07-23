@@ -26,4 +26,4 @@ deploy: tag
 
 .PHONY: clean
 clean:
-	docker rmi tiddlywiki
+	docker image rm tiddlywiki
