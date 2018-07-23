@@ -55,6 +55,10 @@ jobs:
       - setup_remote_docker
       - run: docker load --input tiddlywiki.tar.gz
       - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache --no-progress make
+      - run:
           name: Tag Docker image
           command: |
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
