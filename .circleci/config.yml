@@ -14,9 +14,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Install dependencies
+          command: |
+            apk add --no-cache --no-progress make
+      - run:
           name: Build Docker image
           command: |
-            docker build -t tiddlywiki .
+            make build
             docker save tiddlywiki | gzip -c > tiddlywiki.tar.gz
       - persist_to_workspace:
           root: /tmp/workspace
@@ -36,13 +40,12 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache --no-progress bash curl
+            apk add --no-cache --no-progress bash curl make
             curl -fsSL https://goss.rocks/install | sh
       - run:
           name: Test Docker image
           command: |
-            cd tests/
-            dgoss run tiddlywiki --server
+            make test
 
   deploy:
     <<: *defaults
@@ -54,14 +57,8 @@ jobs:
       - run:
           name: Tag Docker image
           command: |
-            PATCH_VERSION=$(docker run -it --rm tiddlywiki --version | sed 's/[^0-9.]*//g')
-            MAJOR_VERSION=$(echo "$PATCH_VERSION" | sed 's/\..*//')
             echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-            docker tag tiddlywiki "elasticdog/tiddlywiki:latest"
-            docker tag tiddlywiki "elasticdog/tiddlywiki:${PATCH_VERSION}"
-            docker tag tiddlywiki "elasticdog/tiddlywiki:${MAJOR_VERSION}"
-            docker image ls elasticdog/tiddlywiki
-            docker push elasticdog/tiddlywiki
+            make deploy
 
 workflows:
   version: 2
