@@ -46,6 +46,18 @@ jobs:
           name: Test Docker image
           command: |
             make test
+      - run:
+          name: Generate detailed test results
+          environment:
+            GOSS_OPTS: --format junit
+          command: |
+            mkdir -p test-results/junit
+            make test > test-results/junit/results.xml
+          when: on_fail
+      - store_test_results:
+          path: test-results
+      - store_artifacts:
+          path: test-results
 
   deploy:
     <<: *defaults
