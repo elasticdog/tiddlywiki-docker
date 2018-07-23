@@ -1,2 +1,6 @@
-**/*
-!Dockerfile
+tests/*
+contrib/*
+Makefile
+LICENSE
+*.txt
+*.md
