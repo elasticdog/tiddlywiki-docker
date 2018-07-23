@@ -5,7 +5,7 @@ all: build
 
 .PHONY: build
 build:
-	docker build -t tiddlywiki .
+	docker build --tag tiddlywiki .
 
 .PHONY: test
 test:
