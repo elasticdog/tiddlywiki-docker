@@ -26,13 +26,13 @@ jobs:
           root: /tmp/workspace
           paths:
             - tiddlywiki.tar.gz
-            - tests
 
   test:
     <<: *defaults
     environment:
       GOSS_FILES_STRATEGY: cp
     steps:
+      - checkout
       - attach_workspace:
           at: /tmp/workspace
       - setup_remote_docker
