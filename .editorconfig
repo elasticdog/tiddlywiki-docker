@@ -12,3 +12,7 @@ trim_trailing_whitespace = true
 
 [*.md]
 trim_trailing_whitespace = false
+
+[Makefile]
+indent_size = unset
+indent_style = tab
