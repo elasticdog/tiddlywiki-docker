@@ -17,7 +17,7 @@ See the [TiddlyWiki release notes][] for details on specific versions. Automated
 
 ## Usage
 
-These images are meant to replicate the functionality of the `tiddlywiki` CLI executable, but running in Docker. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
+These Docker images are meant to replicate the functionality of the `tiddlywiki` CLI executable. As a sanity check, you can expect the following command to display the version number of TiddlyWiki:
 
     docker run -it --rm elasticdog/tiddlywiki --version
 
