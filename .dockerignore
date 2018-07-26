@@ -1,6 +1,9 @@
-tests/*
+.circleci/*
+.git/*
 contrib/*
-Makefile
+tests/*
+.editorconfig
 LICENSE
-*.txt
+Makefile
 *.md
+*.txt
