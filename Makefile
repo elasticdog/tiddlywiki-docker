@@ -10,7 +10,7 @@ build:
 
 .PHONY: test
 test:
-	cd tests/ && dgoss run tiddlywiki --server
+	cd tests/ && dgoss run tiddlywiki --listen
 
 .PHONY: tag
 tag: UNIQUE_TAG = $(shell printf '%s.%s' "$$(date +%Y%m%d)" "$${CIRCLE_BUILD_NUM:-$$(git rev-parse --short=12 HEAD)}")

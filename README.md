@@ -67,7 +67,7 @@ Assuming the interactive wrapper script is named `tiddlywiki-docker` and exists 
 
 2. Start the TiddlyWiki server:
    ```
-   $ ./tiddlywiki-docker mynewwiki --server 8080 '$:/core/save/all' text/plain text/html '' '' 0.0.0.0
+   $ ./tiddlywiki-docker mynewwiki --listen host=0.0.0.0
    Serving on 0.0.0.0:8080
    (press ctrl-C to exit)
     syncer-server-filesystem: Dispatching 'save' task: $:/StoryList
@@ -96,7 +96,7 @@ docker run --detach --rm \
 	--user "$(id -u):$(id -g)" \
 	elasticdog/tiddlywiki \
 	"$WIKIFOLDER" \
-	--server 8080 '$:/core/save/all' text/plain text/html '' '' 0.0.0.0
+	--listen host=0.0.0.0
 ```
 
 #### Background Example

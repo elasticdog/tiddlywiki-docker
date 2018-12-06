@@ -70,7 +70,7 @@ docker run --detach --rm \
 	--mount "type=bind,source=${PWD},target=/tiddlywiki" \
 	--user "$(id -u):$(id -g)" \
 	"elasticdog/tiddlywiki:${TIDDLYWIKI_DOCKER_TAG}" \
-	--server 8080 '$:/core/save/all' text/plain text/html '' '' 0.0.0.0 > /dev/null
+	--listen host=0.0.0.0 > /dev/null
 
 exit_status=$?
 if [[ $exit_status -ne 0 ]]; then
