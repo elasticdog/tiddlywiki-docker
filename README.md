@@ -134,6 +134,6 @@ The TiddlyWiki Docker project welcomes contributions from everyone. If you're th
 
 tiddlywiki-docker is provided under the terms of the [MIT License][].
 
-Copyright &copy; 2018, [Aaron Bull Schaefer](mailto:aaron@elasticdog.com).
+Copyright &copy; 2018&ndash;2019, [Aaron Bull Schaefer](mailto:aaron@elasticdog.com).
 
 [MIT License]: https://en.wikipedia.org/wiki/MIT_License
