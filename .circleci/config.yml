@@ -16,7 +16,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache --no-progress make
+            apk add --no-cache --no-progress --upgrade make
       - run:
           name: Build Docker image
           command: |
@@ -40,7 +40,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache --no-progress bash curl make
+            apk add --no-cache --no-progress --upgrade bash curl make
             curl -fsSL https://goss.rocks/install | sh
       - run:
           name: Test Docker image
@@ -68,7 +68,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --no-cache --no-progress make
+            apk add --no-cache --no-progress --upgrade make
       - run:
           name: Tag Docker image
           command: |
