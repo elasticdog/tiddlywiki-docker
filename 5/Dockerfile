@@ -1,6 +1,6 @@
 FROM node:alpine
 
-ENV TIDDLYWIKI_VERSION=5.1.21
+ENV TIDDLYWIKI_VERSION=5.1.22
 
 ARG SOURCE_COMMIT
 LABEL maintainer="Aaron Bull Schaefer <aaron@elasticdog.com>"
