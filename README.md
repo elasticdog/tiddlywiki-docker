@@ -1,6 +1,7 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`5.1.22`, `5.1`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
+- [`5.1.23`, `5.1`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
+- [`5.1.22` (*5/Dockerfile* @ 3e4df0f)](https://github.com/elasticdog/tiddlywiki-docker/blob/3e4df0f8a33db4fac6724ada969705c1622a5af0/5/Dockerfile)
 - [`5.1.21` (*5/Dockerfile* @ 5368ab2)](https://github.com/elasticdog/tiddlywiki-docker/blob/5368ab2480dd98dfdbd611e6344e2d6e3c389369/5/Dockerfile)
 - [`5.1.19` (*5/Dockerfile* @ a29642c)](https://github.com/elasticdog/tiddlywiki-docker/blob/a29642cab96186390b6866e45f56cd74807c39ba/5/Dockerfile)
 - [`5.1.18` (*5/Dockerfile* @ 2ead91d)](https://github.com/elasticdog/tiddlywiki-docker/blob/2ead91df276b99724e795c96cdd59e26c367d8d9/5/Dockerfile)
@@ -136,6 +137,6 @@ The TiddlyWiki Docker project welcomes contributions from everyone. If you're th
 
 tiddlywiki-docker is provided under the terms of the [MIT License][].
 
-Copyright &copy; 2018&ndash;2020, [Aaron Bull Schaefer](mailto:aaron@elasticdog.com).
+Copyright &copy; 2018&ndash;2021, [Aaron Bull Schaefer](mailto:aaron@elasticdog.com).
 
 [MIT License]: https://en.wikipedia.org/wiki/MIT_License
