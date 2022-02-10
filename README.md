@@ -1,6 +1,7 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`5.1.23`, `5.1`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
+- [`5.2.0`, `5.2`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
+- [`5.1.23` `5.1` (*5/Dockerfile* @ 3e4df0f)](https://github.com/elasticdog/tiddlywiki-docker/blob/e5bd1226fbc21b7747ebd7bad22a8c7673ab8b0c/5/Dockerfile)
 - [`5.1.22` (*5/Dockerfile* @ 3e4df0f)](https://github.com/elasticdog/tiddlywiki-docker/blob/3e4df0f8a33db4fac6724ada969705c1622a5af0/5/Dockerfile)
 - [`5.1.21` (*5/Dockerfile* @ 5368ab2)](https://github.com/elasticdog/tiddlywiki-docker/blob/5368ab2480dd98dfdbd611e6344e2d6e3c389369/5/Dockerfile)
 - [`5.1.19` (*5/Dockerfile* @ a29642c)](https://github.com/elasticdog/tiddlywiki-docker/blob/a29642cab96186390b6866e45f56cd74807c39ba/5/Dockerfile)
@@ -28,13 +29,13 @@ These Docker images are meant to replicate the functionality of the `tiddlywiki`
 
 That said, there are a few caveats to consider when using a Docker-ized version of this command:
 
-- **Port Publishing**  
+- **Port Publishing**
   The _Dockerfile_ exposes port 8080 from the container, but you must bind to `0.0.0.0` rather than the default `127.0.0.1` (localhost) when running the HTTP server interface, or connectivity won't work from the host.
 
-- **Data Persistence**  
+- **Data Persistence**
   If you actually want to persist your tiddlers, you'll need to [get them out of the container][]; you can use either volumes or bind mounts. In the container, there is a predefined data volume under `/tiddlywiki` that is used as the default working directory.
 
-- **Ownership Permissions**  
+- **Ownership Permissions**
   If you do use a _bind mount_, don't forget that the process running within the **container** will change the **host** filesystem. You should run the container with the `--user` option so that files are created with the desired ownership.
 
 To facilitate handling these things, you can write short wrapper scripts for common scenarios...
