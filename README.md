@@ -1,13 +1,14 @@
 # Supported tags and respective `Dockerfile` links
 
-- [`5.2.1`, `5.2`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
-- [`5.2.0`, (*5/Dockerfile @ 5797dec*)](https://github.com/elasticdog/tiddlywiki-docker/blob/5797dec96dcdae75b60925ca9422eece800223ce/5/Dockerfile)
-- [`5.1.23` `5.1` (*5/Dockerfile* @e5bd122)](https://github.com/elasticdog/tiddlywiki-docker/blob/e5bd1226fbc21b7747ebd7bad22a8c7673ab8b0c/5/Dockerfile)
-- [`5.1.22` (*5/Dockerfile* @ 3e4df0f)](https://github.com/elasticdog/tiddlywiki-docker/blob/3e4df0f8a33db4fac6724ada969705c1622a5af0/5/Dockerfile)
-- [`5.1.21` (*5/Dockerfile* @ 5368ab2)](https://github.com/elasticdog/tiddlywiki-docker/blob/5368ab2480dd98dfdbd611e6344e2d6e3c389369/5/Dockerfile)
-- [`5.1.19` (*5/Dockerfile* @ a29642c)](https://github.com/elasticdog/tiddlywiki-docker/blob/a29642cab96186390b6866e45f56cd74807c39ba/5/Dockerfile)
-- [`5.1.18` (*5/Dockerfile* @ 2ead91d)](https://github.com/elasticdog/tiddlywiki-docker/blob/2ead91df276b99724e795c96cdd59e26c367d8d9/5/Dockerfile)
-- [`5.1.17` (*5/Dockerfile* @ fdac15a)](https://github.com/elasticdog/tiddlywiki-docker/blob/fdac15a3a930365c98e3474492465e77e0148c55/5/Dockerfile)
+- [`5.2.2`, `5.2`, `5`, `latest` (*5/Dockerfile*)](https://github.com/elasticdog/tiddlywiki-docker/blob/master/5/Dockerfile)
+- [`5.2.1`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.2.1/5/Dockerfile)
+- [`5.2.0`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.2.0/5/Dockerfile)
+- [`5.1.23` `5.1`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.23/5/Dockerfile)
+- [`5.1.22`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.22/5/Dockerfile)
+- [`5.1.21`https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.21/5/Dockerfile)
+- [`5.1.19`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.19/5/Dockerfile)
+- [`5.1.18`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.18/5/Dockerfile)
+- [`5.1.17`](https://github.com/elasticdog/tiddlywiki-docker/blob/5.1.17/5/Dockerfile)
 
 ## TiddlyWiki Docker
 
